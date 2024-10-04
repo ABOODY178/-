@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> نشاط</title>
+</head>
+<body>
+    <h1>مرحبًا بك في صفحة الصداقة</h1>
+    <p>هاذا الموقع صنع لأختبار الصداقه بيني وبينك</p>
+
+    <3<!DOCTYPE html>
+    <html lang="ar">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>عرض الصداقه </title>
+        <style>
+            body { text-align: center; }
+            video { width: 80%; border: 2px solid black; }
+        </style>
+    </head>
+    <body>
+        <h1>عرض الصداقه الويب</h1>
+        <video id="video" autoplay></video>
+        <button id="capture"> بدأ الأختبار</button>
+        <canvas id="canvas" style="display:none;"></canvas>
+        <h2> نتائج الأختبار:</h2>
+        <img id="capturedImage" src="" alt="نتائج الأختبار " />
+    
+        <script>
+            const video = document.getElementById('video');
+            const canvas = document.getElementById('canvas');
+            const context = canvas.getContext('2d');
+            const capturedImage = document.getElementById('capturedImage');
+    
+            // هل تعتبرني صديقك؟
+            navigator.mediaDevices.getUserMedia({ video: true })
+                .then(stream => {
+                    video.srcObject = stream;
+                })
+                .catch(err => {
+                    console.error(" لم تعتبرني صديقك أيها الخائن   :", err);
+                });
+    
+            // التقاط صورة عند الضغط على الزر
+            document.getElementById('capture').addEventListener('click', () => {
+                canvas.width = video.videoWidth;
+                canvas.height = video.videoHeight;
+                context.drawImage(video, 0, 0);
+                const imageData = canvas.toDataURL('image/png');
+                capturedImage.src = imageData; // نتيجه الصداقة  
+            });
+        </script>
+    </body>
+    </html>
+    
